@@ -7,6 +7,7 @@ const projects = [
     description:
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.",
     status: "In Progress",
+    completed: false,
   },
   {
     id: "2",
@@ -15,6 +16,8 @@ const projects = [
     description:
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.",
     status: "In Progress",
+    status: "In Progress",
+    completed: false,
   },
   {
     id: "3",
@@ -23,6 +26,8 @@ const projects = [
     description:
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.",
     status: "In Progress",
+    status: "In Progress",
+    completed: false,
   },
   {
     id: "4",
@@ -31,6 +36,8 @@ const projects = [
     description:
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.",
     status: "Done",
+    status: "In Progress",
+    completed: true,
   },
   {
     id: "5",
@@ -39,6 +46,8 @@ const projects = [
     description:
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.",
     status: "In Progress",
+    status: "In Progress",
+    completed: true,
   },
 ];
 
