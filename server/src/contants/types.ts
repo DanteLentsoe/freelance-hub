@@ -4,6 +4,8 @@ export interface Projects {
   name: string;
   description: string;
   status: string;
+  completed: boolean;
+  client?: Client;
 }
 
 export interface Client {
