@@ -1,4 +1,22 @@
+const freelancer = [
+  {
+    id: "1",
+    name: "Dante Lentsoe",
+    email: "dante@gmail.com",
+    phone: "343-567-4333",
+    projectId: "1",
+  },
+  {
+    id: "2",
+    name: "Some other dude",
+    email: "someotherdude@gmail.com",
+    phone: "343-567-4333",
+    projectId: "2",
+  },
+];
+
 // Projects
+
 const projects = [
   {
     id: "1",
@@ -85,4 +103,4 @@ const clients = [
   },
 ];
 
-module.exports = { projects, clients };
+module.exports = { projects, clients, freelancer };
