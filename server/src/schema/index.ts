@@ -1,12 +1,11 @@
 import {
-  graphql,
   GraphQLID,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
   GraphQLList,
   GraphQLBoolean,
-  GraphQLNonNull,
+  GraphQLEnumType,
 } from "graphql";
 const { projects, clients, freelancer } = require("../sampleData.js");
 import { Client, Projects, Freelancer } from "../contants/types";
@@ -146,6 +145,39 @@ const mutations = new GraphQLObjectType({
       },
       resolve(parent, args: Client) {
         return ClientData.findByIdAndRemove(args.id);
+      },
+    },
+
+    // add project
+    addProject: {
+      type: ProjectType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectProgress",
+            values: {
+              new: { value: "Not Started" },
+              pending: { value: "In Progress" },
+              done: { value: "Completed" },
+            },
+          }),
+          defaultValue: "Not Started",
+        },
+        clientId: { type: GraphQLID },
+        completed: { type: GraphQLBoolean },
+      },
+      resolve(parent, args: Projects) {
+        const project = new ProjectData({
+          name: args.name,
+          description: args.description,
+          status: args.status,
+          completed: args.completed,
+          clientId: args.clientId,
+        });
+
+        return project.save();
       },
     },
   },
