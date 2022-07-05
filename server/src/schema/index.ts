@@ -148,6 +148,30 @@ const mutations = new GraphQLObjectType({
       },
     },
 
+    // update client
+    updateClient: {
+      type: ClientType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+      },
+      resolve(parent, args: Client) {
+        return ClientData.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              email: args.email,
+              phone: args.phone,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
+
     // add project
     addProject: {
       type: ProjectType,
@@ -189,6 +213,40 @@ const mutations = new GraphQLObjectType({
       },
       resolve(parent, args: Projects) {
         return ProjectData.findByIdAndRemove(args.id);
+      },
+    },
+
+    // update project
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectUpdate",
+            values: {
+              new: { value: "Not Started" },
+              pending: { value: "In Progress" },
+              done: { value: "Completed" },
+            },
+          }),
+        },
+      },
+      resolve(parent, args: Projects) {
+        return ProjectData.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+              completed: args.completed,
+            },
+          },
+          { new: true }
+        );
       },
     },
   },
