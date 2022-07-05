@@ -180,6 +180,17 @@ const mutations = new GraphQLObjectType({
         return project.save();
       },
     },
+
+    // remove project
+    removeProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLID },
+      },
+      resolve(parent, args: Projects) {
+        return ProjectData.findByIdAndRemove(args.id);
+      },
+    },
   },
 });
 
