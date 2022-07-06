@@ -7,7 +7,7 @@ export const NAV_ITEMS: Array<NavItem> = [
       {
         label: "FreeLance Hub",
         subLabel: "FreeLance Hub using the Web Application",
-        href: "/FreeLanceHub",
+        href: "/freelancehub",
       },
     ],
   },
