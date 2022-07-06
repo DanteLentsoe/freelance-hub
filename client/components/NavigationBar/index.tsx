@@ -20,7 +20,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { BiBarcodeReader } from "react-icons/bi";
+import { BsJournalCode } from "react-icons/bs";
 import { NAV_ITEMS } from "../../contants/data";
 import { NavItem } from "../../contants/types";
 import { useRouter } from "next/router";
@@ -60,7 +60,7 @@ const NavigationBar = () => {
           flex={{ base: 1 }}
           justify={{ base: "center", md: "start" }}
           _hover={{ pointer: "cursor" }}>
-          <BiBarcodeReader
+          <BsJournalCode
             size={24}
             onClick={() => {
               route.push("/");
@@ -73,7 +73,7 @@ const NavigationBar = () => {
             }}
             style={{ cursor: "pointer" }}>
             {" "}
-            Web QR
+            FreeLance Hub
           </Text>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
@@ -85,7 +85,7 @@ const NavigationBar = () => {
           justify={"flex-end"}
           direction={"row"}
           spacing={6}>
-          {route?.route !== "/generatecodes" && (
+          {/* {route?.route !== "/generatecodes" && (
             <Button
               display={{ base: "none", md: "inline-flex" }}
               fontSize={"sm"}
@@ -100,7 +100,7 @@ const NavigationBar = () => {
               }}>
               Generate QR Codes
             </Button>
-          )}
+          )} */}
         </Stack>
       </Flex>
 
