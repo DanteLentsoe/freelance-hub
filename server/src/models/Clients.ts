@@ -8,6 +8,10 @@ const ClientData = new mongoose.Schema<Client>({
   email: {
     type: String,
   },
+  clientNote: {
+    type: String,
+  },
+
   phone: {
     type: String,
   },
