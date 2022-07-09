@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import ClientsContainer from "../components/clientcontainer";
 import NavigationBar from "../components/NavigationBar";
 
 const FreeLancePage: NextPage = () => {
@@ -13,7 +14,10 @@ const FreeLancePage: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <NavigationBar />
+
+      <ClientsContainer />
     </>
   );
 };
