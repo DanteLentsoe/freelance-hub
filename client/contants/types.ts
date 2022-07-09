@@ -4,3 +4,11 @@ export interface NavItem {
   children?: Array<NavItem>;
   href?: string;
 }
+
+export interface IClient {
+  id?: string;
+  name: string;
+  email: string;
+  phone: string;
+  clientNote: string;
+}
