@@ -17,18 +17,7 @@ import Fuse from "fuse.js";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import { DataFectingErrorSVG, NoSearchSVG } from "../../assets/SVG";
 import Loader from "../UI/Loader";
-
-const GET_CLIENTS = gql`
-  query getClients {
-    clients {
-      id
-      name
-      email
-      phone
-      clientNote
-    }
-  }
-`;
+import { GET_CLIENTS } from "../../graphql/queries/client";
 
 interface ClientData {
   clients: IClient[];
