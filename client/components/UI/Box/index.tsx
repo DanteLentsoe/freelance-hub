@@ -5,7 +5,7 @@ import { IClient } from "../../../contants/types";
 import { DeleteCustomerModal } from "../../modals";
 import { theme } from "../../../utils/theme";
 
-const ClientBox = ({ email, name, phone, clientNote }: IClient) => {
+const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -38,6 +38,7 @@ const ClientBox = ({ email, name, phone, clientNote }: IClient) => {
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
+        id={id as string}
         name={name}
       />
     </>
