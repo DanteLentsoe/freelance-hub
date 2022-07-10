@@ -21,6 +21,7 @@ export const ClientType = new GraphQLObjectType<Client>({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     phone: { type: GraphQLString },
+    clientNote: { type: GraphQLString },
   }),
 });
 
@@ -125,12 +126,14 @@ const mutations = new GraphQLObjectType({
         name: { type: GraphQLString },
         email: { type: GraphQLString },
         phone: { type: GraphQLString },
+        clientNote: { type: GraphQLString },
       },
       resolve(parent, args: Client) {
         const client = new ClientData({
           name: args.name,
           email: args.email,
           phone: args.phone,
+          clientNote: args.clientNote,
         });
 
         return client.save();
@@ -156,6 +159,7 @@ const mutations = new GraphQLObjectType({
         name: { type: GraphQLString },
         email: { type: GraphQLString },
         phone: { type: GraphQLString },
+        clientNote: { type: GraphQLString },
       },
       resolve(parent, args: Client) {
         return ClientData.findByIdAndUpdate(
@@ -165,6 +169,7 @@ const mutations = new GraphQLObjectType({
               name: args.name,
               email: args.email,
               phone: args.phone,
+              clientNote: args.clientNote,
             },
           },
           { new: true }

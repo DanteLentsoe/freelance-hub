@@ -1,7 +1,7 @@
 import mongoose, { Mongoose } from "mongoose";
-import { Client } from "../contants/types";
+import { Projects } from "../contants/types";
 
-const ProjectData = new mongoose.Schema({
+const ProjectData = new mongoose.Schema<Projects>({
   name: {
     type: String,
   },
@@ -11,6 +11,9 @@ const ProjectData = new mongoose.Schema({
   },
   description: {
     type: String,
+  },
+  amount: {
+    type: Number,
   },
   completed: {
     type: Boolean,
