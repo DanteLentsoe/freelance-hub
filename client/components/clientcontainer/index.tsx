@@ -8,13 +8,15 @@ import {
   InputRightElement,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { IClient } from "../../contants/types";
 import { SetStateAction, useState } from "react";
 import ClientBox from "../UI/Box";
 import Fuse from "fuse.js";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
-import NoSearchSVG from "../../assets/SVG/NoSearchFoundSVG";
+import { DataFectingErrorSVG, NoSearchSVG } from "../../assets/SVG";
+import Loader from "../UI/Loader";
 
 const GET_CLIENTS = gql`
   query getClients {
@@ -33,14 +35,34 @@ interface ClientData {
 }
 const ClientsContainer = () => {
   const { data, loading, error } = useQuery<ClientData>(GET_CLIENTS);
+  const toast = useToast();
   const [query, setQuery] = useState<string>("");
 
   if (loading) {
-    return <p>Loading....</p>;
+    return (
+      <>
+        <Loader />
+      </>
+    );
   }
 
   if (error) {
-    return <p>Error {error.message}</p>;
+    const toastError = toast({
+      title: "Error Screen.",
+      description: error.message,
+      position: "top",
+      status: "error",
+      duration: 4000,
+      isClosable: true,
+    });
+    return (
+      <Center>
+        <Stack spacing={2}>
+          Error {error.message}
+          <DataFectingErrorSVG />
+        </Stack>
+      </Center>
+    );
   }
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
     setQuery(event.target.value);
@@ -78,8 +100,6 @@ const ClientsContainer = () => {
               placeholder="Search Clients"
               size="lg"
               w={300}
-              // marginBottom={10}
-              // top={5}
               boxShadow={"md"}
             />
             {query.length > 0 && (
@@ -110,17 +130,19 @@ const ClientsContainer = () => {
           );
         })
       ) : (
-        <Center>
-          <Stack spacing={4}>
-            <Text textAlign={"center"}>
-              No Results Found for{" "}
-              <Text fontStyle={"italic"} fontSize={20}>
-                {query}
+        <>
+          <Center>
+            <Stack spacing={4}>
+              <Text textAlign={"center"}>
+                No Results Found for{" "}
+                <Text fontStyle={"italic"} fontSize={20}>
+                  {query}
+                </Text>
               </Text>
-            </Text>
-            <NoSearchSVG />
-          </Stack>
-        </Center>
+              <NoSearchSVG />
+            </Stack>
+          </Center>
+        </>
       )}
     </>
   );
