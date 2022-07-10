@@ -39,6 +39,7 @@ const DeleteCustomerModal = ({
             </AlertDialogBody>
 
             <AlertDialogFooter>
+              {/* @ts-ignore */}
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>

@@ -8,7 +8,7 @@ const ClientBox = ({ email, name, phone, clientNote }: IClient) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Stack p="4" boxShadow="lg" m="4" borderRadius="sm">
+      <Stack p="4" boxShadow="lg" m="4" borderRadius="md">
         <Stack direction="row" alignItems="center">
           <Text fontWeight="semibold">{name}</Text>
           <FaRegUser />
@@ -22,6 +22,7 @@ const ClientBox = ({ email, name, phone, clientNote }: IClient) => {
               ? "No notes provided"
               : clientNote}
           </Text>
+
           <Stack direction={{ base: "column", md: "row" }}>
             <Button variant="outline" colorScheme="green">
               Edit
