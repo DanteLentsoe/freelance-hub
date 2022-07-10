@@ -7,12 +7,14 @@ import {
   InputLeftElement,
   InputRightElement,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { IClient } from "../../contants/types";
 import { SetStateAction, useState } from "react";
 import ClientBox from "../UI/Box";
 import Fuse from "fuse.js";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import NoSearchSVG from "../../assets/SVG/NoSearchFoundSVG";
 
 const GET_CLIENTS = gql`
   query getClients {
@@ -99,15 +101,27 @@ const ClientsContainer = () => {
           </InputGroup>
         </Center>
       </Stack>
-
-      {clientResults &&
+      {clientResults && clientResults?.length > 0 ? (
         clientResults.map((client: IClient) => {
           return (
             <>
               <ClientBox {...client} key={client.id} />
             </>
           );
-        })}
+        })
+      ) : (
+        <Center>
+          <Stack spacing={4}>
+            <Text textAlign={"center"}>
+              No Results Found for{" "}
+              <Text fontStyle={"italic"} fontSize={20}>
+                {query}
+              </Text>
+            </Text>
+            <NoSearchSVG />
+          </Stack>
+        </Center>
+      )}
     </>
   );
 };
