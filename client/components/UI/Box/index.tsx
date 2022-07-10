@@ -3,6 +3,7 @@ import { Stack, Text, Button, useDisclosure } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { IClient } from "../../../contants/types";
 import { DeleteCustomerModal } from "../../modals";
+import { theme } from "../../../utils/theme";
 
 const ClientBox = ({ email, name, phone, clientNote }: IClient) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,7 +25,7 @@ const ClientBox = ({ email, name, phone, clientNote }: IClient) => {
           </Text>
 
           <Stack direction={{ base: "column", md: "row" }}>
-            <Button variant="outline" colorScheme="green">
+            <Button variant="outline" color={theme.Color.primary}>
               Edit
             </Button>
             <Button colorScheme="red" onClick={() => onOpen()}>
