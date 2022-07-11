@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
+  Button,
   useDisclosure,
 } from "@chakra-ui/react";
 import {
@@ -23,10 +24,16 @@ import { BsJournalCode } from "react-icons/bs";
 import { NAV_ITEMS } from "../../contants/data";
 import { NavItem } from "../../contants/types";
 import { useRouter } from "next/router";
+import { theme } from "../../utils/theme";
+import { addClientModal } from "../../store/atoms";
+import { useSetRecoilState } from "recoil";
+
 const NavigationBar = () => {
   const { isOpen, onToggle } = useDisclosure();
 
   const route = useRouter();
+
+  const setAddModal = useSetRecoilState(addClientModal);
 
   return (
     <Box w={"100%"}>
@@ -84,22 +91,40 @@ const NavigationBar = () => {
           justify={"flex-end"}
           direction={"row"}
           spacing={6}>
-          {/* {route?.route !== "/generatecodes" && (
+          {route?.route === "/freelancehub" && (
             <Button
               display={{ base: "none", md: "inline-flex" }}
               fontSize={"sm"}
               fontWeight={600}
               color={"white"}
-              bg={"teal.600"}
+              bg={theme.Color.secondary}
               onClick={() => {
-                route.push("/generatecodes");
+                console.log("Modal Clients");
+                setAddModal(true);
               }}
               _hover={{
-                bg: "teal.400",
+                bg: theme.Color.tertiary,
               }}>
-              Generate QR Codes
+              + Client
             </Button>
-          )} */}
+          )}
+
+          {route?.route === "/freelancehub" && (
+            <Button
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={theme.Color.secondary}
+              onClick={() => {
+                console.log("Modal Projects");
+              }}
+              _hover={{
+                bg: theme.Color.tertiary,
+              }}>
+              + Project
+            </Button>
+          )}
         </Stack>
       </Flex>
 

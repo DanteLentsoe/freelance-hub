@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Text, Button, useDisclosure } from "@chakra-ui/react";
+import { Stack, Text, Button, useDisclosure, Center } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { IClient } from "../../../contants/types";
 import { DeleteCustomerModal } from "../../modals";
@@ -8,8 +8,8 @@ import { theme } from "../../../utils/theme";
 const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <>
-      <Stack p="4" boxShadow="lg" m="4" borderRadius="md">
+    <Center>
+      <Stack p="4" boxShadow="lg" m="4" borderRadius="md" w={900}>
         <Stack direction="row" alignItems="center">
           <Text fontWeight="semibold">{name}</Text>
           <FaRegUser />
@@ -41,7 +41,7 @@ const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
         id={id as string}
         name={name}
       />
-    </>
+    </Center>
   );
 };
 
