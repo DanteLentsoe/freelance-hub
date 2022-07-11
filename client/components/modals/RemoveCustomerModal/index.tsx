@@ -11,6 +11,8 @@ import {
 import { useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { REMOVE_CLIENT } from "../../../graphql/mutations/clientMutations";
+import { GET_CLIENTS } from "../../../graphql/queries/client";
+import { IClient } from "../../../contants/types";
 
 interface IRemoveCustomerModal {
   isOpen: boolean;
@@ -28,7 +30,22 @@ const DeleteCustomerModal = ({
   const cancelRef = useRef<HTMLDivElement>(null);
   const [removeClient] = useMutation(REMOVE_CLIENT, {
     variables: { id: id },
+    update(cache, { data: { removeClient } }) {
+      // @ts-ignore
+      const { clients } = cache.readQuery<IClient>({
+        query: GET_CLIENTS,
+      });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: {
+          clients: clients.filter(
+            (client: IClient) => client.id !== removeClient.id
+          ),
+        },
+      });
+    },
   });
+
   const toast = useToast();
   return (
     <>
