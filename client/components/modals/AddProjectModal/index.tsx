@@ -13,22 +13,36 @@ import {
 } from "@chakra-ui/react";
 import { SetStateAction, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { addClientModal } from "../../../store/atoms";
+import { addProjectModal } from "../../../store/atoms";
 import { theme } from "../../../utils/theme";
 
 const AddProjectModal = () => {
-  const [isAddModalOpen, setCloseAddModal] = useRecoilState(addClientModal);
-  const [userName, setUserName] = useState("");
-  const [userPhone, setUserPhone] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userNotes, setUserNotes] = useState("");
+  const [isProjectModalOpen, setCloseProjectModal] = useRecoilState(
+    addProjectModal
+  );
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [projectStatus, setProjectStatus] = useState("");
+  const [isProjectCompleted, setProjectIsCompleted] = useState<boolean>(false);
+  const [projectClient, setProjectClient] = useState("");
+  const [projectAmount, setProjectAmount] = useState<number>();
+  const [clientId, setClientID] = useState<string>("");
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
 
   const onSubmitHandler = (event: any) => {
     event.preventDefault();
-    console.log("VALUE ", userName, userPhone, userEmail, userNotes);
+    console.log(
+      "VALUE ",
+      projectName,
+      projectDescription,
+      projectStatus,
+      projectStatus,
+      isProjectCompleted,
+      projectClient,
+      projectAmount
+    );
   };
 
   return (
@@ -36,9 +50,9 @@ const AddProjectModal = () => {
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={isAddModalOpen}
+        isOpen={isProjectModalOpen}
         onClose={() => {
-          setCloseAddModal(false);
+          setCloseProjectModal(false);
         }}>
         <ModalOverlay />
         <ModalContent>
@@ -49,30 +63,45 @@ const AddProjectModal = () => {
           <form onSubmit={onSubmitHandler}>
             <ModalBody pb={6}>
               <FormControl>
-                <FormLabel>Project Names</FormLabel>
+                <FormLabel>Project Name</FormLabel>
                 <Input
                   ref={initialRef}
                   placeholder="Project name"
-                  value={userName}
+                  value={projectName}
                   id="name"
                   onChange={(event: {
                     target: { value: SetStateAction<string> };
                   }) => {
-                    setUserName(event.target.value);
+                    setProjectName(event.target.value);
                   }}
                 />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Project</FormLabel>
+                <FormLabel>Project Status</FormLabel>
                 <Input
                   placeholder="Client Email"
-                  value={userEmail}
+                  value={projectStatus}
                   id="email"
                   onChange={(event: {
                     target: { value: SetStateAction<string> };
                   }) => {
-                    setUserEmail(event.target.value);
+                    setProjectStatus(event.target.value);
+                  }}
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Project Client</FormLabel>
+                <Input
+                  ref={initialRef}
+                  placeholder="Client Name of Project"
+                  value={projectClient}
+                  id="name"
+                  onChange={(event: {
+                    target: { value: SetStateAction<string> };
+                  }) => {
+                    setProjectClient(event.target.value);
                   }}
                 />
               </FormControl>
@@ -81,27 +110,27 @@ const AddProjectModal = () => {
                 <FormLabel>Amount</FormLabel>
                 <Input
                   placeholder="Cost"
-                  value={userPhone}
+                  value={projectAmount}
                   id="phone"
                   onChange={(event: {
-                    target: { value: SetStateAction<string> };
+                    target: { value: SetStateAction<number> };
                   }) => {
-                    setUserPhone(event.target.value);
+                    setProjectAmount(event.target.value as number);
                   }}
                 />
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Notes</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <Input
-                  placeholder="Client Notes"
+                  placeholder="Project Description"
                   id="notes"
-                  value={userNotes}
+                  value={projectDescription}
                   h={100}
                   onChange={(event: {
                     target: { value: SetStateAction<string> };
                   }) => {
-                    setUserNotes(event.target.value);
+                    setProjectDescription(event.target.value);
                   }}
                 />
               </FormControl>
@@ -118,13 +147,13 @@ const AddProjectModal = () => {
                 }}
                 onClick={() => {
                   console.log("SAVE");
-                  setCloseAddModal(false);
+                  setCloseProjectModal(false);
                 }}>
                 Save
               </Button>
               <Button
                 onClick={() => {
-                  setCloseAddModal(false);
+                  setCloseProjectModal(false);
                 }}>
                 Cancel
               </Button>

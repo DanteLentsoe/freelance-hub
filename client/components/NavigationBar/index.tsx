@@ -25,7 +25,7 @@ import { NAV_ITEMS } from "../../contants/data";
 import { NavItem } from "../../contants/types";
 import { useRouter } from "next/router";
 import { theme } from "../../utils/theme";
-import { addClientModal } from "../../store/atoms";
+import { addClientModal, addProjectModal } from "../../store/atoms";
 import { useSetRecoilState } from "recoil";
 
 const NavigationBar = () => {
@@ -34,6 +34,7 @@ const NavigationBar = () => {
   const route = useRouter();
 
   const setAddModal = useSetRecoilState(addClientModal);
+  const setProjectModal = useSetRecoilState(addProjectModal);
 
   return (
     <Box w={"100%"}>
@@ -99,7 +100,6 @@ const NavigationBar = () => {
               color={"white"}
               bg={theme.Color.secondary}
               onClick={() => {
-                console.log("Modal Clients");
                 setAddModal(true);
               }}
               _hover={{
@@ -117,7 +117,7 @@ const NavigationBar = () => {
               color={"white"}
               bg={theme.Color.secondary}
               onClick={() => {
-                console.log("Modal Projects");
+                setProjectModal(true);
               }}
               _hover={{
                 bg: theme.Color.tertiary,
