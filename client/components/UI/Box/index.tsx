@@ -19,13 +19,20 @@ const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
           direction={{ base: "column", md: "row" }}
           justifyContent="space-between">
           <Text fontSize={{ base: "sm" }} textAlign={"left"} maxW={"4xl"}>
-            {clientNote === null || clientNote === undefined
+            {clientNote === null ||
+            clientNote === undefined ||
+            clientNote === ""
               ? "No notes provided"
               : clientNote}
           </Text>
 
           <Stack direction={{ base: "column", md: "row" }}>
-            <Button variant="outline" color={theme.Color.primary}>
+            <Button
+              color={"white"}
+              bg={theme.Color.secondary}
+              _hover={{
+                bg: theme.Color.tertiary,
+              }}>
               Edit
             </Button>
             <Button colorScheme="red" onClick={() => onOpen()}>
