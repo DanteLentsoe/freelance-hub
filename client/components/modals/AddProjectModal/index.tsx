@@ -109,9 +109,11 @@ const AddProjectModal = () => {
               <FormControl mt={4}>
                 <FormLabel>Amount</FormLabel>
                 <Input
-                  placeholder="Cost"
+                  placeholder="Project Total Cost"
                   value={projectAmount}
+                  type="number"
                   id="phone"
+                  //   @ts-ignore
                   onChange={(event: {
                     target: { value: SetStateAction<number> };
                   }) => {
