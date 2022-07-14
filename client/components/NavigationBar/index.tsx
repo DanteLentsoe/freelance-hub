@@ -109,7 +109,7 @@ const NavigationBar = () => {
             </Button>
           )}
 
-          {route?.route === "/freelancehub" && (
+          {route?.route === "/freelanceprojects" && (
             <Button
               display={{ base: "none", md: "inline-flex" }}
               fontSize={"sm"}

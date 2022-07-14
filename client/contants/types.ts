@@ -12,3 +12,14 @@ export interface IClient {
   phone: string;
   clientNote: string;
 }
+
+export interface IProject {
+  id: string;
+  clientId: string;
+  name: string;
+  description: string;
+  status: string;
+  completed: boolean;
+  client?: IClient;
+  amount: number;
+}
