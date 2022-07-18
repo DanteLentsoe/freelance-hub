@@ -9,6 +9,11 @@ export const NAV_ITEMS: Array<NavItem> = [
         subLabel: "FreeLance Hub using the Web Application",
         href: "/freelancehub",
       },
+      {
+        label: "FreeLance Hub Projects",
+        subLabel: "Collection of Projects",
+        href: "/freelanceprojects",
+      },
     ],
   },
 
