@@ -1,15 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import ClientsContainer from "../components/clientcontainer";
-import AddClientModal from "../components/modals/AddClientModal";
 import AddProjectModal from "../components/modals/AddProjectModal";
 import NavigationBar from "../components/NavigationBar";
+import ProjectContainer from "../components/ProjectContainer";
 
-const FreeLancePage: NextPage = () => {
+const FreeLanceProjectPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>FreeLance Hub | Main</title>
+        <title>FreeLance Hub | ProjectPage</title>
         <meta
           name="description"
           content="FreeLance Hub is platform designed for frelances to track and document their projects"
@@ -18,12 +18,10 @@ const FreeLancePage: NextPage = () => {
       </Head>
 
       <NavigationBar />
-
-      <ClientsContainer />
-      <AddClientModal />
+      <ProjectContainer />
       <AddProjectModal />
     </>
   );
 };
 
-export default FreeLancePage;
+export default FreeLanceProjectPage;
