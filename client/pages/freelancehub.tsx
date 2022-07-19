@@ -21,7 +21,6 @@ const FreeLancePage: NextPage = () => {
 
       <ClientsContainer />
       <AddClientModal />
-      <AddProjectModal />
     </>
   );
 };

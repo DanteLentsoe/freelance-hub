@@ -13,13 +13,17 @@ import {
   useColorModeValue,
   Button,
   useDisclosure,
+  useColorMode,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  MoonIcon,
+  SunIcon,
 } from "@chakra-ui/icons";
+import { useState } from "react";
 import { BsJournalCode } from "react-icons/bs";
 import { NAV_ITEMS } from "../../contants/data";
 import { NavItem } from "../../contants/types";
@@ -30,6 +34,14 @@ import { useSetRecoilState } from "recoil";
 
 const NavigationBar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const { toggleColorMode } = useColorMode();
+  const [isDefaultIcon, setDefaultIcon] = useState<boolean>(true);
+
+  // icon toggler for dark mode
+
+  const handleIconChange = () => {
+    setDefaultIcon(!isDefaultIcon);
+  };
 
   const route = useRouter();
 
@@ -92,6 +104,13 @@ const NavigationBar = () => {
           justify={"flex-end"}
           direction={"row"}
           spacing={6}>
+          <Button
+            onClick={() => {
+              toggleColorMode();
+              handleIconChange();
+            }}>
+            {isDefaultIcon ? <MoonIcon /> : <SunIcon />}
+          </Button>
           {route?.route === "/freelancehub" && (
             <Button
               display={{ base: "none", md: "inline-flex" }}

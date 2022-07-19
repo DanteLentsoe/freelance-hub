@@ -19,7 +19,7 @@ import {
   Input,
   InputLeftElement,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaMoneyBillWave } from "react-icons/fa";
 import Fuse from "fuse.js";
 import { GET_PROJECT, GET_PROJECTS } from "../../graphql/queries/project";
 import { useQuery } from "@apollo/client";
@@ -32,7 +32,7 @@ interface ProjectData {
   projects: IProject[];
 }
 
-const PriceWrapper = ({ children }: { children: ReactNode }) => {
+const ProjectWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <Box
       mb={4}
@@ -116,7 +116,7 @@ const ProjectContainer = () => {
             <Input
               value={query}
               onChange={handleChange}
-              placeholder="Search Clients"
+              placeholder="Search Projects"
               size="lg"
               w={300}
               boxShadow={"md"}
@@ -146,24 +146,27 @@ const ProjectContainer = () => {
           {projectResults &&
             projectResults.map((project: IProject) => {
               return (
-                <Box py={12} key={project.id}>
+                <Box py={2} key={project.id}>
                   <Stack
                     direction={{ base: "column", md: "row" }}
                     textAlign="center"
                     justify="center"
                     spacing={{ base: 4, lg: 10 }}
                     py={10}>
-                    <PriceWrapper>
+                    <ProjectWrapper>
                       <Box py={4} px={12}>
                         <Text fontWeight="500" fontSize="2xl">
                           {project.name}
                         </Text>
                         <HStack justifyContent="center">
-                          <Text fontSize="3xl" fontWeight="600">
-                            $
-                          </Text>
-                          <Text fontSize="5xl" fontWeight="900">
-                            {project.amount}
+                          <Text fontSize="3xl" fontWeight="600"></Text>
+                          <Text fontSize="1xl" fontWeight="300">
+                            Amount:{" "}
+                            {project.amount <= 0 ||
+                            project.amount === undefined ||
+                            project.amount === null
+                              ? "No Payment"
+                              : project.amount}
                           </Text>
                           <Text fontSize="3xl" color="gray.500">
                             {project.client?.email}
@@ -179,7 +182,7 @@ const ProjectContainer = () => {
 
                           <ListItem>
                             <ListIcon as={FaCheckCircle} color="green.500" />
-                            {project.status}
+                            Progress: {project.status}
                           </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
@@ -188,7 +191,7 @@ const ProjectContainer = () => {
                           </Button>
                         </Box>
                       </VStack>
-                    </PriceWrapper>
+                    </ProjectWrapper>
                   </Stack>
                 </Box>
               );
