@@ -27,6 +27,7 @@ import { IProject } from "../../contants/types";
 import Loader from "../UI/Loader";
 import { DataFectingErrorSVG } from "../../assets/SVG";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 interface ProjectData {
   projects: IProject[];
@@ -53,6 +54,7 @@ const ProjectContainer = () => {
 
   const toast = useToast();
   const [query, setQuery] = useState<string>("");
+  const route = useRouter();
 
   if (loading) {
     return (
@@ -184,10 +186,20 @@ const ProjectContainer = () => {
                             <ListIcon as={FaCheckCircle} color="green.500" />
                             Progress: {project.status}
                           </ListItem>
+                          <ListItem>
+                            <ListIcon as={FaCheckCircle} color="green.500" />
+                            Completed: {project.completed}
+                          </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
-                          <Button w="full" colorScheme="red" variant="outline">
-                            {project.completed}
+                          <Button
+                            w="full"
+                            colorScheme="red"
+                            variant="outline"
+                            onClick={() => {
+                              route.push(`/projects/${project.id}`);
+                            }}>
+                            See Details
                           </Button>
                         </Box>
                       </VStack>
