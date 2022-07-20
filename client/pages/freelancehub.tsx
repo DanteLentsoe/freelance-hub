@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import ClientsContainer from "../components/clientcontainer";
 import AddClientModal from "../components/modals/AddClientModal";
-import AddProjectModal from "../components/modals/AddProjectModal";
 import NavigationBar from "../components/NavigationBar";
 
 const FreeLancePage: NextPage = () => {

@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import ClientsContainer from "../components/clientcontainer";
 import AddProjectModal from "../components/modals/AddProjectModal";
 import NavigationBar from "../components/NavigationBar";
 import ProjectContainer from "../components/ProjectContainer";
