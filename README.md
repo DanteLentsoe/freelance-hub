@@ -9,24 +9,21 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 - [Node](https://nodejs.org/en/) minimum v12.3.0
+- [yarn] (https://yarnpkg.com/)
 
 ### Installing
 
-- Clone the repository using SSH
-
 ```
 git clone https://github.com/DanteLentsoe/freelance-hub.git
-```
-
-- Navigate to the cloned repo
-
-```
 cd freelance-hub
+cp server/.env.example server/.env
+# set your db connection string in there when you're ready MONGO_URI
+cd server && yarn && cd ..
+cd client && yarn && cd ..
+cd server && yarn dev && cd ..
 ```
 
-- yarn
--
-- yarn start
+Server endpoint: http://localhost:8000/graphql
 
 ## Environments
 
