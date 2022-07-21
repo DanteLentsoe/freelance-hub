@@ -115,7 +115,7 @@ const SingleProject: NextPage = () => {
           <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
             <Avatar
               src={"https://avatars0.githubusercontent.com/u/1164541?v=4"}
-              alt={"asd"}
+              alt={"freelance hub project image"}
             />
             <Stack direction={"column"} spacing={0} fontSize={"sm"}>
               <Text fontWeight={600}>
