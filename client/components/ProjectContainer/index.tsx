@@ -179,7 +179,7 @@ const ProjectContainer = () => {
                         <List spacing={3} textAlign="start" px={12}>
                           <ListItem>
                             <ListIcon as={FaCheckCircle} color="green.500" />
-                            {project.description}
+                            {`${project.description.substring(0, 20)}....`}
                           </ListItem>
 
                           <ListItem>
