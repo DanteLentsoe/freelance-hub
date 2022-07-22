@@ -1,6 +1,8 @@
 # freelance-hub
 
-This application allows freelances to log, clients and projects they have with clients. This features, a client and a graphql API
+Freelance Hub is an application intented on aidding with administration and tracking of clients and projects associated with clients for freelancing as well as a small team managing mulitple projects.
+
+The application features, a client (Next.js and TypeScript) and a graphql API (server with Express, MongoDB)
 
 ## Getting Started
 
@@ -124,4 +126,4 @@ freelance-hub/
 
 | Version | Author                              | Date       |
 | ------- | ----------------------------------- | ---------- |
-| 0.0.2   | Dante Lentsoe <dllentsoe@gmail.com> | 05/07/2022 |
+| 0.0.4   | Dante Lentsoe <dllentsoe@gmail.com> | 05/07/2022 |

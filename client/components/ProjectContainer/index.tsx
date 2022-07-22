@@ -19,7 +19,7 @@ import {
   Input,
   InputLeftElement,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaMoneyBillWave } from "react-icons/fa";
 import Fuse from "fuse.js";
 import { GET_PROJECT, GET_PROJECTS } from "../../graphql/queries/project";
 import { useQuery } from "@apollo/client";
@@ -27,12 +27,13 @@ import { IProject } from "../../contants/types";
 import Loader from "../UI/Loader";
 import { DataFectingErrorSVG } from "../../assets/SVG";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 interface ProjectData {
   projects: IProject[];
 }
 
-const PriceWrapper = ({ children }: { children: ReactNode }) => {
+const ProjectWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <Box
       mb={4}
@@ -53,6 +54,7 @@ const ProjectContainer = () => {
 
   const toast = useToast();
   const [query, setQuery] = useState<string>("");
+  const route = useRouter();
 
   if (loading) {
     return (
@@ -116,7 +118,7 @@ const ProjectContainer = () => {
             <Input
               value={query}
               onChange={handleChange}
-              placeholder="Search Clients"
+              placeholder="Search Projects"
               size="lg"
               w={300}
               boxShadow={"md"}
@@ -146,24 +148,27 @@ const ProjectContainer = () => {
           {projectResults &&
             projectResults.map((project: IProject) => {
               return (
-                <Box py={12} key={project.id}>
+                <Box py={2} key={project.id}>
                   <Stack
                     direction={{ base: "column", md: "row" }}
                     textAlign="center"
                     justify="center"
                     spacing={{ base: 4, lg: 10 }}
                     py={10}>
-                    <PriceWrapper>
+                    <ProjectWrapper>
                       <Box py={4} px={12}>
                         <Text fontWeight="500" fontSize="2xl">
                           {project.name}
                         </Text>
                         <HStack justifyContent="center">
-                          <Text fontSize="3xl" fontWeight="600">
-                            $
-                          </Text>
-                          <Text fontSize="5xl" fontWeight="900">
-                            {project.amount}
+                          <Text fontSize="3xl" fontWeight="600"></Text>
+                          <Text fontSize="1xl" fontWeight="300">
+                            Amount:{" "}
+                            {project.amount <= 0 ||
+                            project.amount === undefined ||
+                            project.amount === null
+                              ? "No Payment"
+                              : project.amount}
                           </Text>
                           <Text fontSize="3xl" color="gray.500">
                             {project.client?.email}
@@ -174,21 +179,31 @@ const ProjectContainer = () => {
                         <List spacing={3} textAlign="start" px={12}>
                           <ListItem>
                             <ListIcon as={FaCheckCircle} color="green.500" />
-                            {project.description}
+                            {`${project.description.substring(0, 20)}....`}
                           </ListItem>
 
                           <ListItem>
                             <ListIcon as={FaCheckCircle} color="green.500" />
-                            {project.status}
+                            Progress: {project.status}
+                          </ListItem>
+                          <ListItem>
+                            <ListIcon as={FaCheckCircle} color="green.500" />
+                            Completed: {project.completed}
                           </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
-                          <Button w="full" colorScheme="red" variant="outline">
-                            {project.completed}
+                          <Button
+                            w="full"
+                            colorScheme="red"
+                            variant="outline"
+                            onClick={() => {
+                              route.push(`/projects/${project.id}`);
+                            }}>
+                            See Details
                           </Button>
                         </Box>
                       </VStack>
-                    </PriceWrapper>
+                    </ProjectWrapper>
                   </Stack>
                 </Box>
               );
