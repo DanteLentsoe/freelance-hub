@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/client/react";
 import { IProject } from "../../contants/types";
 import { DataFectingErrorSVG } from "../../assets/SVG";
 import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
+import { BiArrowBack } from "react-icons/bi";
 import Loader from "../../components/UI/Loader";
 import {
   Box,
@@ -86,7 +87,15 @@ const SingleProject: NextPage = () => {
             mt={-6}
             mx={-6}
             mb={6}
-            pos={"relative"}></Box>
+            pos={"relative"}>
+            <Box _hover={{ cursor: "pointer" }}>
+              <BiArrowBack
+                size={25}
+                style={{ top: 20, marginLeft: 12 }}
+                onClick={() => route.back()}
+              />
+            </Box>
+          </Box>
 
           <Stack
             p={3}
