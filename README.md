@@ -1,6 +1,6 @@
 # freelance-hub
 
-Freelance Hub is an application intented on aidding with administration and tracking of clients and projects associated with clients for freelancing as well as a small team managing mulitple projects.
+Freelance Hub is an application intented on aiding with administration and tracking of clients and projects associated with clients for freelancing as well as a small team managing mulitple projects.
 
 The application features, a client (Next.js and TypeScript) and a graphql API (server with Express, MongoDB)
 
@@ -10,25 +10,43 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
+- [MongoDBCompass](https://www.mongodb.com/try/download/compass) minimum v1.32
+- [yarn](https://classic.yarnpkg.com/en/)npm i yarn
 - [Node](https://nodejs.org/en/) minimum v12.3.0
 
 ### Installing
 
-- Clone the repository using SSH
+- Clone the repository using HTTPS
 
 ```
 git clone https://github.com/DanteLentsoe/freelance-hub.git
 ```
 
-- Navigate to the cloned repo
-
 ```
 cd freelance-hub
 ```
 
-- yarn
--
+cp server/.env.example server/.env
+
+# Set up your DB connection string using MONOGO_URI
+
+cd server && yarn && cd ..
+cd client && yarn && cd ..
+cd server && yarn dev && cd ..
+
+# Run Client
+
+cd client yarn dev
+
 - yarn start
+  Client Endpoint : http://localhost:3000
+
+# Run Server
+
+cd server yarn dev
+
+- yarn start
+  Server Endpoint : http://localhost:8000/graphql
 
 ## Environments
 
