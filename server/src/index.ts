@@ -3,7 +3,7 @@ import { graphqlHTTP } from "express-graphql";
 import dotenv from "dotenv";
 const cors = require("cors");
 import { connectDB } from "./config/db";
-const schema = require("./schema");
+const schema = require("./resolvers");
 dotenv.config();
 
 const app: Express = express();

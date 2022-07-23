@@ -44,7 +44,7 @@ freelance-hub/
     │   ├── config
     │   ├── contants
     │   ├── models
-    │   ├── schema
+    │   ├── resolvers
     │   ├── index.ts
     |   ├── package.json
     |   ├── README.md
