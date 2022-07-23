@@ -50,8 +50,8 @@ const ClientProjectCard = ({
   return (
     <Box py={6} px={5} minW={"100vh"}>
       {clientData === null ? (
-        <Heading size={"lg"} textAlign={"center"}>
-          <Text color="purple.400">No Client Assigned To Project</Text>
+        <Heading size={"md"} textAlign={"center"}>
+          <Text>No Client Assigned To Project</Text>
         </Heading>
       ) : (
         <Stack spacing={4} width={"100%"} direction={"column"}>

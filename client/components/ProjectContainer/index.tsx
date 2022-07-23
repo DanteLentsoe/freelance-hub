@@ -19,15 +19,19 @@ import {
   Input,
   InputLeftElement,
 } from "@chakra-ui/react";
-import { FaCheckCircle, FaMoneyBillWave } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
+import { GrInProgress } from "react-icons//gr";
 import Fuse from "fuse.js";
-import { GET_PROJECT, GET_PROJECTS } from "../../graphql/queries/project";
+import { GET_PROJECTS } from "../../graphql/queries/project";
 import { useQuery } from "@apollo/client";
 import { IProject } from "../../contants/types";
 import Loader from "../UI/Loader";
 import { DataFectingErrorSVG } from "../../assets/SVG";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { theme } from "../../utils/theme";
+import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { MdOutlineDescription } from "react-icons/md";
 
 interface ProjectData {
   projects: IProject[];
@@ -83,7 +87,6 @@ const ProjectContainer = () => {
     );
   }
 
-  console.log("DAta ", data?.projects);
   const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
     setQuery(event.target.value);
 
@@ -147,6 +150,7 @@ const ProjectContainer = () => {
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
           {projectResults &&
             projectResults.map((project: IProject) => {
+              console.log("Sad", project.completed);
               return (
                 <Box py={2} key={project.id}>
                   <Stack
@@ -178,24 +182,30 @@ const ProjectContainer = () => {
                       <VStack py={4} borderBottomRadius={"xl"}>
                         <List spacing={3} textAlign="start" px={12}>
                           <ListItem>
-                            <ListIcon as={FaCheckCircle} color="green.500" />
                             {`${project.description.substring(0, 20)}....`}
                           </ListItem>
 
+                          <ListItem>Progress: {project.status}</ListItem>
                           <ListItem>
-                            <ListIcon as={FaCheckCircle} color="green.500" />
-                            Progress: {project.status}
-                          </ListItem>
-                          <ListItem>
-                            <ListIcon as={FaCheckCircle} color="green.500" />
-                            Completed: {project.completed}
+                            <ListIcon as={GrInProgress} color="green.500" />
+                            Completed:{" "}
+                            {project.completed ? (
+                              <ListIcon
+                                as={AiFillCheckCircle}
+                                color="green.500"
+                              />
+                            ) : (
+                              <ListIcon
+                                as={AiFillCloseCircle}
+                                color="red.500"
+                              />
+                            )}
                           </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
                           <Button
                             w="full"
-                            colorScheme="red"
-                            variant="outline"
+                            color={theme.Color.tertiary}
                             onClick={() => {
                               route.push(`/projects/${project.id}`);
                             }}>
