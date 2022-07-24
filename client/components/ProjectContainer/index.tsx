@@ -30,8 +30,11 @@ import { DataFectingErrorSVG } from "../../assets/SVG";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { theme } from "../../utils/theme";
-import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import { MdOutlineDescription } from "react-icons/md";
+import {
+  AiFillCheckCircle,
+  AiFillCloseCircle,
+  AiOutlineFundProjectionScreen,
+} from "react-icons/ai";
 
 interface ProjectData {
   projects: IProject[];
@@ -150,7 +153,6 @@ const ProjectContainer = () => {
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
           {projectResults &&
             projectResults.map((project: IProject) => {
-              console.log("Sad", project.completed);
               return (
                 <Box py={2} key={project.id}>
                   <Stack
@@ -182,10 +184,9 @@ const ProjectContainer = () => {
                       <VStack py={4} borderBottomRadius={"xl"}>
                         <List spacing={3} textAlign="start" px={12}>
                           <ListItem>
-                            {`${project.description.substring(0, 20)}....`}
+                            <ListIcon as={AiOutlineFundProjectionScreen} />
+                            {project.status}
                           </ListItem>
-
-                          <ListItem>Progress: {project.status}</ListItem>
                           <ListItem>
                             <ListIcon as={GrInProgress} color="green.500" />
                             Completed:{" "}
@@ -200,6 +201,9 @@ const ProjectContainer = () => {
                                 color="red.500"
                               />
                             )}
+                          </ListItem>
+                          <ListItem>
+                            {`${project.description.substring(0, 20)}....`}
                           </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
