@@ -18,8 +18,9 @@ import {
   InputRightElement,
   Input,
   InputLeftElement,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons//gr";
 import Fuse from "fuse.js";
 import { GET_PROJECTS } from "../../graphql/queries/project";
@@ -35,6 +36,7 @@ import {
   AiFillCloseCircle,
   AiOutlineFundProjectionScreen,
 } from "react-icons/ai";
+import RemoveProjectModal from "../modals/RemoveProjectModal";
 
 interface ProjectData {
   projects: IProject[];
@@ -56,7 +58,9 @@ const ProjectWrapper = ({ children }: { children: ReactNode }) => {
 
 const ProjectContainer = () => {
   const { data, loading, error } = useQuery<ProjectData>(GET_PROJECTS);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [targetCardName, setTargetCardName] = useState<string>();
+  const [idKey, setIDKey] = useState<string>();
   // GET_PROJECT
 
   const toast = useToast();
@@ -162,6 +166,18 @@ const ProjectContainer = () => {
                     spacing={{ base: 4, lg: 10 }}
                     py={10}>
                     <ProjectWrapper>
+                      <Box p={3} display={"flex"} marginLeft={"auto"} w="100%">
+                        <Button
+                          style={{ padding: 10 }}
+                          onClick={() => {
+                            onOpen();
+                            setTargetCardName(project?.name);
+                            setIDKey(project?.id);
+                          }}>
+                          <MdDeleteOutline size={22} />
+                        </Button>
+                      </Box>
+
                       <Box py={4} px={12}>
                         <Text fontWeight="500" fontSize="2xl">
                           {project.name}
@@ -188,7 +204,7 @@ const ProjectContainer = () => {
                             {project.status}
                           </ListItem>
                           <ListItem>
-                            <ListIcon as={GrInProgress} color="green.500" />
+                            <ListIcon as={GrInProgress} />
                             Completed:{" "}
                             {project.completed ? (
                               <ListIcon
@@ -209,6 +225,14 @@ const ProjectContainer = () => {
                         <Box w="80%" pt={7}>
                           <Button
                             w="full"
+                            // bg={theme.Color.tertiary}
+                            // color={"white"}
+                            // _hover={{
+                            //   bg: theme.Color.secondary,
+                            // }}
+                            // boxShadow={
+                            //   "0px 1px 25px -5px rgb(143 161 153 / 48%), 0 10px 10px -5px rgb(143 161 153 / 43%)"
+                            // }
                             color={theme.Color.tertiary}
                             onClick={() => {
                               route.push(`/projects/${project.id}`);
@@ -224,6 +248,13 @@ const ProjectContainer = () => {
             })}
         </SimpleGrid>
       </Container>
+      <RemoveProjectModal
+        id={idKey as string}
+        isOpen={isOpen}
+        name={targetCardName as string}
+        onClose={onClose}
+        onOpen={onOpen}
+      />
     </>
   );
 };
