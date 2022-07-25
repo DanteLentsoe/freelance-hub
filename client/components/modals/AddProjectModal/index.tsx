@@ -31,16 +31,13 @@ const AddProjectModal = () => {
     addProjectModal
   );
   const toast = useToast();
-  const { client, data, error, loading } = useQuery<IClientCollection>(
-    GET_CLIENTS
-  );
+  const { data, error, loading } = useQuery<IClientCollection>(GET_CLIENTS);
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectStatus, setProjectStatus] = useState("Not Started");
   const [isProjectCompleted, setProjectIsCompleted] = useState<boolean>(false);
-  const [projectClient, setProjectClient] = useState("");
   const [projectAmount, setProjectAmount] = useState<number>();
-  const [clientId, setClientID] = useState<string>("");
+  const [clientId, setClientID] = useState<string>();
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -51,29 +48,14 @@ const AddProjectModal = () => {
       description: projectDescription,
       status: projectStatus,
       completed: isProjectCompleted,
+      clientId: clientId,
+      amount: projectAmount as number,
     },
     refetchQueries: [GET_PROJECTS],
   });
 
-  console.log("Data ", data?.clients);
-
-  // const onSubmitHandler = (event: any) => {
-  //   event.preventDefault();
-  //   addClient();
-  // };
-
-  const onSubmitHandler = (event: any) => {
+  const onSubmitHandler = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log(
-      "VALUE ",
-      projectName,
-      projectDescription,
-      projectStatus,
-      projectStatus,
-      isProjectCompleted,
-      projectClient,
-      projectAmount
-    );
     addProject();
   };
 
@@ -121,21 +103,6 @@ const AddProjectModal = () => {
                 </FormControl>
 
                 <FormControl mt={4}>
-                  <FormLabel>Project Client</FormLabel>
-                  <Input
-                    ref={initialRef}
-                    placeholder="Client Name of Project"
-                    value={projectClient}
-                    id="name"
-                    onChange={(event: {
-                      target: { value: SetStateAction<string> };
-                    }) => {
-                      setProjectClient(event.target.value);
-                    }}
-                  />
-                </FormControl>
-
-                <FormControl mt={4}>
                   <FormLabel>Amount</FormLabel>
                   <Input
                     placeholder="Project Total Cost"
@@ -169,7 +136,7 @@ const AddProjectModal = () => {
                 </FormControl>
 
                 <FormControl mt={4}>
-                  <FormLabel>Client </FormLabel>
+                  <FormLabel>Project Client </FormLabel>
 
                   <Select
                     value={clientId}
@@ -177,14 +144,16 @@ const AddProjectModal = () => {
                     onChange={(event: {
                       target: { value: SetStateAction<string> };
                     }) => {
-                      setClientID(event.target.value);
+                      setClientID(event.target.value as string);
                     }}>
                     <>
-                      <option value="Not Started"> Select Client</option>
+                      <option value=""> Select Client</option>
                       {data?.clients.map((client: IClient) => {
                         return (
                           <>
-                            <option value={client.id}> {client.name}</option>
+                            <option value={client.id} key={client.id}>
+                              {client.name}
+                            </option>
                           </>
                         );
                       })}

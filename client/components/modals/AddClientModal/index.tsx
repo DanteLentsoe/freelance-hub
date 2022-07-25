@@ -39,9 +39,13 @@ const AddClientModal = () => {
     refetchQueries: [GET_CLIENTS],
   });
 
-  const onSubmitHandler = (event: any) => {
+  const onSubmitHandler = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     addClient();
+    setUserName("");
+    setUserPhone("");
+    setUserEmail("");
+    setUserNotes("");
   };
 
   return (

@@ -20,23 +20,35 @@ const REMOVE_PROJECT = gql`
 `;
 
 const ADD_PROJECT = gql`
-  mutation addProject(
+  mutation AddProject(
     $name: String
     $description: String
-    $status: String
-    $completed: String
+    $status: ProjectProgress
+    $completed: Boolean
+    $clientId: ID
+    $amount: Number
   ) {
-    addClient(
+    addProject(
       name: $name
       description: $description
       status: $status
       completed: $completed
+      clientId: $clientId
+      amount: $amount
     ) {
       id
       name
       description
       status
       completed
+      amount
+      client {
+        id
+        name
+        email
+        phone
+        clientNote
+      }
     }
   }
 `;
