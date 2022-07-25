@@ -88,12 +88,10 @@ const SingleProject: NextPage = () => {
             mx={-6}
             mb={6}
             pos={"relative"}>
-            <Box _hover={{ cursor: "pointer" }}>
-              <BiArrowBack
-                size={25}
-                style={{ top: 20, marginLeft: 12 }}
-                onClick={() => route.back()}
-              />
+            <Box p={3} _hover={{ cursor: "pointer" }}>
+              <Button style={{ padding: 10 }} onClick={() => route.back()}>
+                <BiArrowBack size={22} />
+              </Button>
             </Box>
           </Box>
 
