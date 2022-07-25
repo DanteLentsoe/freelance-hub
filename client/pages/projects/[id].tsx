@@ -7,6 +7,8 @@ import { GET_PROJECT } from "../../graphql/queries/project";
 import { useQuery } from "@apollo/client/react";
 import { IProject } from "../../contants/types";
 import { DataFectingErrorSVG } from "../../assets/SVG";
+import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
+import { BiArrowBack } from "react-icons/bi";
 import Loader from "../../components/UI/Loader";
 import {
   Box,
@@ -19,14 +21,15 @@ import {
   Button,
 } from "@chakra-ui/react";
 import ClientProjectCard from "../../components/clientProjectCard";
+import { theme } from "../../utils/theme";
 
-interface ISinglProject {
+interface ISingleProject {
   project: IProject;
 }
 const SingleProject: NextPage = () => {
   const route = useRouter();
 
-  const { data, loading, error } = useQuery<ISinglProject>(GET_PROJECT, {
+  const { data, loading, error } = useQuery<ISingleProject>(GET_PROJECT, {
     variables: { id: route.query?.id as string },
   });
   const toast = useToast();
@@ -58,9 +61,6 @@ const SingleProject: NextPage = () => {
     );
   }
 
-  console.log("Route ", route.query?.id);
-
-  console.log("Inside ", data?.project);
   return (
     <>
       <Head>
@@ -87,7 +87,13 @@ const SingleProject: NextPage = () => {
             mt={-6}
             mx={-6}
             mb={6}
-            pos={"relative"}></Box>
+            pos={"relative"}>
+            <Box p={3} _hover={{ cursor: "pointer" }}>
+              <Button style={{ padding: 10 }} onClick={() => route.back()}>
+                <BiArrowBack size={22} />
+              </Button>
+            </Box>
+          </Box>
 
           <Stack
             p={3}
@@ -112,26 +118,21 @@ const SingleProject: NextPage = () => {
               Completed:
             </Heading>
             {data?.project.completed ? (
-              <Text>Done</Text>
+              <AiFillCheckCircle size={25} color={theme.Color.tertiary} />
             ) : (
-              <Text>Not Done</Text>
+              <AiFillCloseCircle size={25} color={"#e01515"} />
             )}
-            <Heading size={"md"}>{"typePlan"}</Heading>
             <Stack>
               <Button size="md">Edit Details</Button>
             </Stack>
           </Stack>
 
-          <Text color={"gray.500"}>{data?.project.description}</Text>
-          <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
-            <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-              <Text fontWeight={600}>
-                Client : {data?.project.client?.name}
-              </Text>
-              <Text color={"gray.500"}>Feb 08, 2021 · 6min read</Text>
-            </Stack>
-          </Stack>
-          <ClientProjectCard />
+          <ClientProjectCard
+            projectNotes={data?.project.description}
+            projectStatus={data?.project.status}
+            amount={data?.project.status}
+            clientData={data?.project.client}
+          />
         </Box>
       </Center>
     </>

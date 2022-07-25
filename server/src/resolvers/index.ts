@@ -6,6 +6,7 @@ import {
   GraphQLList,
   GraphQLBoolean,
   GraphQLEnumType,
+  GraphQLInt,
 } from "graphql";
 const { projects, clients, freelancer } = require("../sampleData.js");
 import { Client, Projects, Freelancer } from "../contants/types";
@@ -196,6 +197,7 @@ const mutations = new GraphQLObjectType({
         },
         clientId: { type: GraphQLID },
         completed: { type: GraphQLBoolean },
+        amount: { type: GraphQLInt },
       },
       resolve(parent, args: Projects) {
         const project = new ProjectData({
@@ -204,6 +206,7 @@ const mutations = new GraphQLObjectType({
           status: args.status,
           completed: args.completed,
           clientId: args.clientId,
+          amount: args.amount,
         });
 
         return project.save();
