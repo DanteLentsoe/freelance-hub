@@ -1,40 +1,20 @@
 import {
   Box,
-  Button,
   Divider,
   Heading,
-  List,
-  ListIcon,
-  ListItem,
   Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
 
-const options = [
-  { id: 1, desc: "1 lorem ipsum" },
-  { id: 2, desc: "Lorem, ipsum dolor." },
-  { id: 3, desc: "Monthly Updates" },
-];
+import { IClient } from "../../contants/types";
+
 interface PackageTierProps {
   title: string;
-  options: Array<{ id: number; desc: string }>;
-  typePlan: string;
+  value: string;
   checked?: boolean;
 }
-const PackageTier = ({
-  title,
-  options,
-  typePlan,
-  checked = false,
-}: PackageTierProps) => {
-  const colorTextLight = checked ? "white" : "purple.600";
-  const bgColorLight = checked ? "purple.400" : "gray.300";
-
-  const colorTextDark = checked ? "white" : "purple.500";
-  const bgColorDark = checked ? "purple.400" : "gray.300";
-
+const PackageTier = ({ title, value }: PackageTierProps) => {
   return (
     <Stack
       p={3}
@@ -48,28 +28,25 @@ const PackageTier = ({
         md: "row",
       }}
       alignItems={{ md: "center" }}>
-      <Heading size={"md"}>{title}</Heading>
-      <List spacing={3} textAlign="start">
-        {options.map((desc, id) => (
-          <ListItem key={desc.id}>
-            <ListIcon as={FaCheckCircle} color="green.500" />
-            {desc.desc}
-          </ListItem>
-        ))}
-      </List>
-      <Heading size={"xl"}>{typePlan}</Heading>
-      <Stack>
-        <Button
-          size="md"
-          color={useColorModeValue(colorTextLight, colorTextDark)}
-          bgColor={useColorModeValue(bgColorLight, bgColorDark)}>
-          Get Started
-        </Button>
-      </Stack>
+      <Heading size={"sm"}>{title}</Heading>
+
+      <Text size={"sm"}>{value}</Text>
     </Stack>
   );
 };
-const ClientProjectCard = () => {
+
+interface IClientProjectCard {
+  projectNotes?: string;
+  projectStatus?: string;
+  amount?: string;
+  clientData?: IClient;
+}
+const ClientProjectCard = ({
+  amount,
+  clientData,
+  projectNotes,
+  projectStatus,
+}: IClientProjectCard) => {
   return (
     <Box py={6} px={5} minW={"100vh"}>
       <Stack spacing={4} width={"100%"} direction={"column"}>
@@ -90,8 +67,8 @@ const ClientProjectCard = () => {
               md: "40%",
             }}
             textAlign={"center"}>
-            <Heading size={"lg"}>
-              The Right Plan for <Text color="purple.400">Your Business</Text>
+            <Heading size={"md"}>
+              <Text color="purple.400">Notes :</Text>
             </Heading>
           </Stack>
           <Stack
@@ -99,24 +76,49 @@ const ClientProjectCard = () => {
               base: "100%",
               md: "60%",
             }}>
-            <Text textAlign={"center"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-              quod in iure vero. Facilis magnam, sed officiis commodi labore
-              odit.
-            </Text>
+            <Text textAlign={"center"}>{projectNotes}</Text>
           </Stack>
         </Stack>
         <Divider />
-        <PackageTier title={"Starter"} typePlan="Free" options={options} />
-        <Divider />
-        <PackageTier
-          title={"Lorem Plus"}
-          checked={true}
-          typePlan="$32.00"
-          options={options}
-        />
-        <Divider />
-        <PackageTier title={"Lorem Pro"} typePlan="$50.00" options={options} />
+        {clientData === null ? (
+          <Heading size={"md"} textAlign={"center"}>
+            <Text>No Client Assigned To Project</Text>
+          </Heading>
+        ) : (
+          <>
+            <PackageTier
+              title={"Project Status"}
+              value={projectStatus as string}
+            />
+            <Divider />
+            <PackageTier
+              title={"Amount"}
+              checked={true}
+              value={amount as string}
+            />
+            <Divider />
+            <PackageTier
+              title={"Client Name"}
+              value={clientData?.name as string}
+            />
+            <Divider />
+            <PackageTier
+              title={"Client Email"}
+              value={clientData?.email as string}
+            />
+            <Divider />
+
+            <PackageTier
+              title={"Client Phone"}
+              value={clientData?.phone as string}
+            />
+            <Divider />
+            <PackageTier
+              title={"Client Notes"}
+              value={clientData?.clientNote as string}
+            />
+          </>
+        )}
       </Stack>
     </Box>
   );
