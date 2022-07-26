@@ -36,8 +36,8 @@ const AddProjectModal = () => {
   const [projectDescription, setProjectDescription] = useState("");
   const [projectStatus, setProjectStatus] = useState("Not Started");
   const [isProjectCompleted, setProjectIsCompleted] = useState<boolean>(false);
-  const [projectAmount, setProjectAmount] = useState<number>();
-  const [clientId, setClientID] = useState<string>();
+  const [projectAmount, setProjectAmount] = useState<number | undefined>();
+  const [clientId, setClientID] = useState<string>("");
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -49,7 +49,7 @@ const AddProjectModal = () => {
       status: projectStatus,
       completed: isProjectCompleted,
       clientId: clientId,
-      amount: projectAmount as number,
+      amount: Number(projectAmount as number),
     },
     refetchQueries: [GET_PROJECTS],
   });
@@ -106,7 +106,7 @@ const AddProjectModal = () => {
                   <FormLabel>Amount</FormLabel>
                   <Input
                     placeholder="Project Total Cost"
-                    value={projectAmount}
+                    value={Number(projectAmount)}
                     type="number"
                     id="phone"
                     //   @ts-ignore
@@ -187,7 +187,6 @@ const AddProjectModal = () => {
                     backgroundColor: theme.Color.tertiary,
                   }}
                   onClick={() => {
-                    console.log("SAVE");
                     setCloseProjectModal(false);
                   }}>
                   Save

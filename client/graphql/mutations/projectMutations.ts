@@ -7,7 +7,7 @@ const REMOVE_PROJECT = gql`
       description
       status
       completed
-
+      amount
       client {
         id
         name

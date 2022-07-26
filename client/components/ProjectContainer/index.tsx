@@ -219,7 +219,7 @@ const ProjectContainer = () => {
                             )}
                           </ListItem>
                           <ListItem>
-                            {`${project.description.substring(0, 20)}....`}
+                            {`${project.description?.substring(0, 20)}....`}
                           </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
