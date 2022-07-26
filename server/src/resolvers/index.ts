@@ -204,9 +204,9 @@ const mutations = new GraphQLObjectType({
           name: args.name,
           description: args.description,
           status: args.status,
+          amount: args.amount,
           completed: args.completed,
           clientId: args.clientId,
-          amount: args.amount,
         });
 
         return project.save();
@@ -231,6 +231,7 @@ const mutations = new GraphQLObjectType({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
+        amount: { type: GraphQLInt },
         status: {
           type: new GraphQLEnumType({
             name: "ProjectUpdate",
@@ -251,6 +252,7 @@ const mutations = new GraphQLObjectType({
               description: args.description,
               status: args.status,
               completed: args.completed,
+              amount: args.amount,
             },
           },
           { new: true }
