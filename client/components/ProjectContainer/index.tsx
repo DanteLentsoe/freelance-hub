@@ -158,7 +158,7 @@ const ProjectContainer = () => {
           {projectResults &&
             projectResults.map((project: IProject) => {
               return (
-                <Box py={2} key={project.id}>
+                <Box py={2} key={project?.id}>
                   <Stack
                     direction={{ base: "column", md: "row" }}
                     textAlign="center"

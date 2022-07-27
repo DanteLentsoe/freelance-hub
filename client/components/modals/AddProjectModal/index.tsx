@@ -36,7 +36,9 @@ const AddProjectModal = () => {
   const [projectDescription, setProjectDescription] = useState("");
   const [projectStatus, setProjectStatus] = useState("Not Started");
   const [isProjectCompleted, setProjectIsCompleted] = useState<boolean>(false);
-  const [projectAmount, setProjectAmount] = useState<number | undefined>();
+  const [projectAmount, setProjectAmount] = useState<number | undefined>(
+    undefined
+  );
   const [clientId, setClientID] = useState<string>("");
 
   const initialRef = useRef(null);
@@ -49,7 +51,7 @@ const AddProjectModal = () => {
       status: projectStatus,
       completed: isProjectCompleted,
       clientId: clientId,
-      amount: Number(projectAmount as number),
+      amount: projectAmount as number,
     },
     refetchQueries: [GET_PROJECTS],
   });
@@ -57,6 +59,11 @@ const AddProjectModal = () => {
   const onSubmitHandler = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     addProject();
+    setProjectAmount(undefined);
+    setProjectStatus("");
+    setProjectDescription("");
+    setProjectDescription("");
+    setProjectName("");
   };
 
   if (error) {
@@ -113,7 +120,7 @@ const AddProjectModal = () => {
                     onChange={(event: {
                       target: { value: SetStateAction<number> };
                     }) => {
-                      setProjectAmount(event.target.value as number);
+                      setProjectAmount(+event.target.value);
                     }}
                   />
                 </FormControl>
