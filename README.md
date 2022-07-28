@@ -19,8 +19,9 @@ cd freelance-hub
 cp server/.env.example server/.env
 # set your db connection string in there when you're ready MONGO_URI
 cd server && yarn && cd ..
-cd client && yarn && cd ..
 cd server && yarn dev && cd ..
+cd client && yarn && cd ..
+cd client && yarn dev && cd ..
 ```
 
 Server endpoint: http://localhost:8000/graphql
