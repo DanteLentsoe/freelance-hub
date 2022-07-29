@@ -4,9 +4,13 @@ import { FaRegUser } from "react-icons/fa";
 import { IClient } from "../../../contants/types";
 import { DeleteCustomerModal } from "../../modals";
 import { theme } from "../../../utils/theme";
+import UpdateClientModal from "../../modals/UpdateClientModal";
+import { useState } from "react";
 
 const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+
   return (
     <Center>
       <Stack p="4" boxShadow="lg" m="4" borderRadius="md" w={900}>
@@ -32,6 +36,9 @@ const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
               bg={theme.Color.secondary}
               _hover={{
                 bg: theme.Color.tertiary,
+              }}
+              onClick={() => {
+                setUpdateModalOpen(true);
               }}>
               Edit
             </Button>
@@ -47,6 +54,15 @@ const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
         onClose={onClose}
         id={id as string}
         name={name}
+      />
+      <UpdateClientModal
+        id={id as string}
+        name={name}
+        email={email}
+        phone={phone}
+        clientNote={clientNote}
+        isUpdateModalOpen={isUpdateModalOpen}
+        setUpdateModalOpen={setUpdateModalOpen}
       />
     </Center>
   );
