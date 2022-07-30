@@ -1,3 +1,3 @@
 import DeleteCustomerModal from "./RemoveCustomerModal";
-
-export { DeleteCustomerModal };
+import ClientDetailsModal from ".//ClientDetailsModal";
+export { DeleteCustomerModal, ClientDetailsModal };

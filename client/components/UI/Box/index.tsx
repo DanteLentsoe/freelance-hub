@@ -2,18 +2,32 @@ import React from "react";
 import { Stack, Text, Button, useDisclosure, Center } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { IClient } from "../../../contants/types";
-import { DeleteCustomerModal } from "../../modals";
+import { ClientDetailsModal, DeleteCustomerModal } from "../../modals";
 import { theme } from "../../../utils/theme";
 import UpdateClientModal from "../../modals/UpdateClientModal";
 import { useState } from "react";
 
 const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
+  const clientData = { email, name, phone, clientNote, id };
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isDetailsOpen,
+    onOpen: openDetailsModal,
+    onClose: closeDetailsModal,
+  } = useDisclosure();
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
 
   return (
     <Center>
-      <Stack p="4" boxShadow="lg" m="4" borderRadius="md" w={900}>
+      <Stack
+        p="4"
+        boxShadow="lg"
+        m="4"
+        borderRadius="md"
+        w={900}
+        _hover={{
+          boxShadow: "sm",
+        }}>
         <Stack direction="row" alignItems="center">
           <Text fontWeight="semibold">{name}</Text>
           <FaRegUser />
@@ -36,13 +50,33 @@ const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
               bg={theme.Color.secondary}
               _hover={{
                 bg: theme.Color.tertiary,
+                transform: "translateY(-2px)",
+              }}
+              onClick={() => {
+                openDetailsModal();
+              }}>
+              Details
+            </Button>
+            <Button
+              color={"white"}
+              bg={theme.Color.secondary}
+              _hover={{
+                bg: theme.Color.tertiary,
+                transform: "translateY(-2px)",
               }}
               onClick={() => {
                 setUpdateModalOpen(true);
               }}>
               Edit
             </Button>
-            <Button colorScheme="red" onClick={() => onOpen()}>
+            <Button
+              colorScheme="red"
+              _hover={{
+                transform: "translateY(-2px)",
+              }}
+              onClick={() => {
+                onOpen();
+              }}>
               Remove
             </Button>
           </Stack>
@@ -63,6 +97,12 @@ const ClientBox = ({ email, name, phone, clientNote, id }: IClient) => {
         clientNote={clientNote}
         isUpdateModalOpen={isUpdateModalOpen}
         setUpdateModalOpen={setUpdateModalOpen}
+      />
+
+      <ClientDetailsModal
+        isOpen={isDetailsOpen}
+        onClose={closeDetailsModal}
+        clientData={clientData}
       />
     </Center>
   );

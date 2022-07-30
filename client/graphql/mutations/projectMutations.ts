@@ -21,7 +21,6 @@ const REMOVE_PROJECT = gql`
 
 const ADD_PROJECT = gql`
   mutation AddProject(
-    $id: ID
     $name: String
     $description: String
     $status: ProjectProgress
@@ -30,7 +29,6 @@ const ADD_PROJECT = gql`
     $amount: Number
   ) {
     addProject(
-      id: $id
       name: $name
       description: $description
       status: $status
