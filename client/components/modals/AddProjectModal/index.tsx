@@ -21,7 +21,7 @@ import { GET_PROJECTS } from "../../../graphql/queries/project";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_PROJECT } from "../../../graphql/mutations/projectMutations";
 import { GET_CLIENTS } from "../../../graphql/queries/client";
-import { IClient, IProject } from "../../../contants/types";
+import { IClient, IEventAction, IProject } from "../../../contants/types";
 
 interface IClientCollection {
   clients: IClient[];
@@ -131,9 +131,7 @@ const AddProjectModal = () => {
                   <Select
                     value={projectStatus}
                     id="status"
-                    onChange={(event: {
-                      target: { value: SetStateAction<string> };
-                    }) => {
+                    onChange={(event: IEventAction) => {
                       setProjectStatus(event.target.value);
                     }}>
                     <option value="Not Started"> Not Started</option>
@@ -148,9 +146,7 @@ const AddProjectModal = () => {
                   <Select
                     value={clientId}
                     id="clientId"
-                    onChange={(event: {
-                      target: { value: SetStateAction<string> };
-                    }) => {
+                    onChange={(event: IEventAction) => {
                       setClientID(event.target.value as string);
                     }}>
                     <>
@@ -175,9 +171,7 @@ const AddProjectModal = () => {
                     id="notes"
                     value={projectDescription}
                     h={100}
-                    onChange={(event: {
-                      target: { value: SetStateAction<string> };
-                    }) => {
+                    onChange={(event: IEventAction) => {
                       setProjectDescription(event.target.value);
                     }}
                   />

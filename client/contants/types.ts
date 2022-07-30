@@ -1,3 +1,5 @@
+import { SetStateAction } from "react";
+
 export interface NavItem {
   label: string;
   subLabel?: string;
@@ -22,4 +24,8 @@ export interface IProject {
   completed: boolean;
   client?: IClient;
   amount: number;
+}
+
+export interface IEventAction {
+  target: { value: SetStateAction<string> };
 }

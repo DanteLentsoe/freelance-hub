@@ -1,4 +1,4 @@
-import { ReactNode, SetStateAction, useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   Box,
   Stack,
@@ -25,7 +25,7 @@ import { GrInProgress } from "react-icons//gr";
 import Fuse from "fuse.js";
 import { GET_PROJECTS } from "../../graphql/queries/project";
 import { useQuery } from "@apollo/client";
-import { IProject } from "../../contants/types";
+import { IEventAction, IProject } from "../../contants/types";
 import Loader from "../UI/Loader";
 import { DataFectingErrorSVG } from "../../assets/SVG";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
@@ -94,8 +94,7 @@ const ProjectContainer = () => {
     );
   }
 
-  const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
-    setQuery(event.target.value);
+  const handleChange = (event: IEventAction) => setQuery(event.target.value);
 
   const options = {
     includeScore: true,
@@ -155,97 +154,93 @@ const ProjectContainer = () => {
       </Stack>
       <Container maxW={"6xl"} mt={10}>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
-          {projectResults &&
-            projectResults.map((project: IProject) => {
-              return (
-                <Box py={2} key={project?.id}>
-                  <Stack
-                    direction={{ base: "column", md: "row" }}
-                    textAlign="center"
-                    justify="center"
-                    spacing={{ base: 4, lg: 10 }}
-                    py={10}>
-                    <ProjectWrapper>
-                      <Box p={3} display={"flex"} marginLeft={"auto"} w="100%">
+          {projectResults?.map((project: IProject) => {
+            return (
+              <Box py={2} key={project?.id}>
+                <Stack
+                  direction={{ base: "column", md: "row" }}
+                  textAlign="center"
+                  justify="center"
+                  spacing={{ base: 4, lg: 10 }}
+                  py={10}>
+                  <ProjectWrapper>
+                    <Box p={3} display={"flex"} marginLeft={"auto"} w="100%">
+                      <Button
+                        style={{ padding: 10 }}
+                        onClick={() => {
+                          onOpen();
+                          setTargetCardName(project?.name);
+                          setIDKey(project?.id);
+                        }}>
+                        <MdDeleteOutline size={22} />
+                      </Button>
+                    </Box>
+
+                    <Box py={4} px={12}>
+                      <Text fontWeight="500" fontSize="2xl">
+                        {project.name}
+                      </Text>
+                      <HStack justifyContent="center">
+                        <Text fontSize="3xl" fontWeight="600"></Text>
+                        <Text fontSize="1xl" fontWeight="300">
+                          Amount:{" "}
+                          {project.amount <= 0 ||
+                          project.amount === undefined ||
+                          project.amount === null
+                            ? "No Payment"
+                            : project.amount}
+                        </Text>
+                        <Text fontSize="3xl" color="gray.500">
+                          {project.client?.email}
+                        </Text>
+                      </HStack>
+                    </Box>
+                    <VStack py={4} borderBottomRadius={"xl"}>
+                      <List spacing={3} textAlign="start" px={12}>
+                        <ListItem>
+                          <ListIcon as={AiOutlineFundProjectionScreen} />
+                          {project.status}
+                        </ListItem>
+                        <ListItem>
+                          <ListIcon as={GrInProgress} />
+                          Completed:{" "}
+                          {project.completed ? (
+                            <ListIcon
+                              as={AiFillCheckCircle}
+                              color="green.500"
+                            />
+                          ) : (
+                            <ListIcon as={AiFillCloseCircle} color="red.500" />
+                          )}
+                        </ListItem>
+                        <ListItem>
+                          {`${project.description?.substring(0, 20)}....`}
+                        </ListItem>
+                      </List>
+                      <Box w="80%" pt={7}>
                         <Button
-                          style={{ padding: 10 }}
+                          w="full"
+                          // bg={theme.Color.tertiary}
+                          // color={"white"}
+                          // _hover={{
+                          //   bg: theme.Color.secondary,
+                          // }}
+                          // boxShadow={
+                          //   "0px 1px 25px -5px rgb(143 161 153 / 48%), 0 10px 10px -5px rgb(143 161 153 / 43%)"
+                          // }
+                          color={theme.Color.tertiary}
                           onClick={() => {
-                            onOpen();
-                            setTargetCardName(project?.name);
-                            setIDKey(project?.id);
+                            route.push(`/projects/${project.id}`);
                           }}>
-                          <MdDeleteOutline size={22} />
+                          See Details
                         </Button>
                       </Box>
-
-                      <Box py={4} px={12}>
-                        <Text fontWeight="500" fontSize="2xl">
-                          {project.name}
-                        </Text>
-                        <HStack justifyContent="center">
-                          <Text fontSize="3xl" fontWeight="600"></Text>
-                          <Text fontSize="1xl" fontWeight="300">
-                            Amount:{" "}
-                            {project.amount <= 0 ||
-                            project.amount === undefined ||
-                            project.amount === null
-                              ? "No Payment"
-                              : project.amount}
-                          </Text>
-                          <Text fontSize="3xl" color="gray.500">
-                            {project.client?.email}
-                          </Text>
-                        </HStack>
-                      </Box>
-                      <VStack py={4} borderBottomRadius={"xl"}>
-                        <List spacing={3} textAlign="start" px={12}>
-                          <ListItem>
-                            <ListIcon as={AiOutlineFundProjectionScreen} />
-                            {project.status}
-                          </ListItem>
-                          <ListItem>
-                            <ListIcon as={GrInProgress} />
-                            Completed:{" "}
-                            {project.completed ? (
-                              <ListIcon
-                                as={AiFillCheckCircle}
-                                color="green.500"
-                              />
-                            ) : (
-                              <ListIcon
-                                as={AiFillCloseCircle}
-                                color="red.500"
-                              />
-                            )}
-                          </ListItem>
-                          <ListItem>
-                            {`${project.description?.substring(0, 20)}....`}
-                          </ListItem>
-                        </List>
-                        <Box w="80%" pt={7}>
-                          <Button
-                            w="full"
-                            // bg={theme.Color.tertiary}
-                            // color={"white"}
-                            // _hover={{
-                            //   bg: theme.Color.secondary,
-                            // }}
-                            // boxShadow={
-                            //   "0px 1px 25px -5px rgb(143 161 153 / 48%), 0 10px 10px -5px rgb(143 161 153 / 43%)"
-                            // }
-                            color={theme.Color.tertiary}
-                            onClick={() => {
-                              route.push(`/projects/${project.id}`);
-                            }}>
-                            See Details
-                          </Button>
-                        </Box>
-                      </VStack>
-                    </ProjectWrapper>
-                  </Stack>
-                </Box>
-              );
-            })}
+                    </VStack>
+                  </ProjectWrapper>
+                </Stack>
+              </Box>
+            );
+          })}
         </SimpleGrid>
       </Container>
       <RemoveProjectModal

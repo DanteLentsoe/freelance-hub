@@ -10,8 +10,8 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { IClient } from "../../contants/types";
-import { SetStateAction, useState } from "react";
+import { IClient, IEventAction } from "../../contants/types";
+import { useState } from "react";
 import ClientBox from "../UI/Box";
 import Fuse from "fuse.js";
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
@@ -53,8 +53,7 @@ const ClientsContainer = () => {
       </Center>
     );
   }
-  const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
-    setQuery(event.target.value);
+  const handleChange = (event: IEventAction) => setQuery(event.target.value);
 
   const options = {
     includeScore: true,
