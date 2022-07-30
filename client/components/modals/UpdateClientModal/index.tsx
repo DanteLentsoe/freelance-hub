@@ -11,10 +11,10 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { SetStateAction, useRef, useState, Dispatch } from "react";
-import { ADD_CLIENT } from "../../../graphql/mutations/clientMutations";
-import { GET_CLIENTS } from "../../../graphql/queries/client";
+import { UPDATE_CLIENT } from "../../../graphql/mutations/clientMutations";
 import { theme } from "../../../utils/theme";
 
 type UpdateClientModal = {
@@ -40,27 +40,43 @@ const UpdateClientModal = ({
   const [userPhone, setUserPhone] = useState(phone);
   const [userEmail, setUserEmail] = useState(email);
   const [userNotes, setUserNotes] = useState(clientNote);
-
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-
-  const [addClient] = useMutation(ADD_CLIENT, {
+  const toast = useToast();
+  const [updateClient, { error }] = useMutation(UPDATE_CLIENT, {
     variables: {
+      id: id,
       name: userName,
       phone: userPhone,
       email: userEmail,
       clientNote: userNotes,
     },
-    refetchQueries: [GET_CLIENTS],
   });
 
   const onSubmitHandler = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    addClient();
-    setUserName("");
-    setUserPhone("");
-    setUserEmail("");
-    setUserNotes("");
+
+    try {
+      toast({
+        title: "Update Successful",
+        description: error?.message,
+        position: "top",
+        status: "success",
+        duration: 800,
+        isClosable: true,
+      });
+      updateClient();
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: "Update Error",
+        description: error?.message,
+        position: "top",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
