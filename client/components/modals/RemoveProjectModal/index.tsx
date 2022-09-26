@@ -89,7 +89,7 @@ const RemoveProjectModal = ({
                       title: `Error Removing Project`,
                       description: error as any,
                       position: "top",
-                      status: "success",
+                      status: "error",
                       duration: 2000,
                       isClosable: true,
                     });

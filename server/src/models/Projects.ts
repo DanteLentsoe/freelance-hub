@@ -5,10 +5,10 @@ const ProjectData = new mongoose.Schema<Projects>({
   name: {
     type: String,
   },
-  status: {
-    type: String,
-    enum: ["Not Started", "In Progress", "Completed"],
-  },
+  // status: {
+  //   type: String,
+  //   enum: ["Not Started", "In Progress", "Completed"],
+  // },
   description: {
     type: String,
   },

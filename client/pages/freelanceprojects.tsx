@@ -18,6 +18,7 @@ const FreeLanceProjectPage: NextPage = () => {
 
       <NavigationBar />
       <ProjectContainer />
+
       <AddProjectModal />
     </>
   );

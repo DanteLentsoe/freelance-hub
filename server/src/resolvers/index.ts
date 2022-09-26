@@ -57,8 +57,9 @@ const ProjectType = new GraphQLObjectType<Projects>({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
-    status: { type: GraphQLString },
+    // status: { type: GraphQLString },
     completed: { type: GraphQLBoolean },
+    amount: { type: GraphQLInt },
     client: {
       type: ClientType,
       resolve(parent, args) {
@@ -184,17 +185,17 @@ const mutations = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         description: { type: GraphQLString },
-        status: {
-          type: new GraphQLEnumType({
-            name: "ProjectProgress",
-            values: {
-              new: { value: "Not Started" },
-              pending: { value: "In Progress" },
-              done: { value: "Completed" },
-            },
-          }),
-          defaultValue: "Not Started",
-        },
+        // status: {
+        //   type: new GraphQLEnumType({
+        //     name: "ProjectProgress",
+        //     values: {
+        //       new: { value: "Not Started" },
+        //       pending: { value: "In Progress" },
+        //       done: { value: "Completed" },
+        //     },
+        //   }),
+        //   defaultValue: "Not Started",
+        // },
         clientId: { type: GraphQLID },
         completed: { type: GraphQLBoolean },
         amount: { type: GraphQLInt },
@@ -203,7 +204,7 @@ const mutations = new GraphQLObjectType({
         const project = new ProjectData({
           name: args.name,
           description: args.description,
-          status: args.status,
+          // status: args.status,
           amount: args.amount,
           completed: args.completed,
           clientId: args.clientId,
@@ -232,16 +233,16 @@ const mutations = new GraphQLObjectType({
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         amount: { type: GraphQLInt },
-        status: {
-          type: new GraphQLEnumType({
-            name: "ProjectUpdate",
-            values: {
-              new: { value: "Not Started" },
-              pending: { value: "In Progress" },
-              done: { value: "Completed" },
-            },
-          }),
-        },
+        // status: {
+        //   type: new GraphQLEnumType({
+        //     name: "ProjectUpdate",
+        //     values: {
+        //       new: { value: "Not Started" },
+        //       pending: { value: "In Progress" },
+        //       done: { value: "Completed" },
+        //     },
+        //   }),
+        // },
       },
       resolve(parent, args: Projects) {
         return ProjectData.findByIdAndUpdate(
@@ -250,7 +251,7 @@ const mutations = new GraphQLObjectType({
             $set: {
               name: args.name,
               description: args.description,
-              status: args.status,
+              // status: args.status,
               completed: args.completed,
               amount: args.amount,
             },

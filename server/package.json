@@ -9,6 +9,7 @@
   "author": "Dante Lentsoe",
   "license": "MIT",
   "dependencies": {
+    "@types/cheerio": "^0.22.31",
     "@types/express": "^4.17.13",
     "color": "^4.2.3",
     "cors": "^2.8.5",

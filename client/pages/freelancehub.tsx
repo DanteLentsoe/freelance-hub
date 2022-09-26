@@ -15,9 +15,7 @@ const FreeLancePage: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <NavigationBar />
-
       <ClientsContainer />
       <AddClientModal />
     </>

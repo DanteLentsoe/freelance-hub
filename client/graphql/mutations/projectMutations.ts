@@ -5,7 +5,7 @@ const REMOVE_PROJECT = gql`
       id
       name
       description
-      status
+      # status
       completed
       amount
       client {
@@ -23,7 +23,7 @@ const ADD_PROJECT = gql`
   mutation AddProject(
     $name: String
     $description: String
-    $status: ProjectProgress
+    # $status: ProjectProgress
     $completed: Boolean
     $clientId: ID
     $amount: Number
@@ -31,21 +31,20 @@ const ADD_PROJECT = gql`
     addProject(
       name: $name
       description: $description
-      status: $status
+      # status: $status
       completed: $completed
       clientId: $clientId
       amount: $amount
     ) {
-      id
       name
       description
-      status
+      # status
       completed
       amount
+
       client {
         id
         name
-        email
         phone
         clientNote
       }

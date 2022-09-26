@@ -48,17 +48,48 @@ const AddProjectModal = () => {
     variables: {
       name: projectName,
       description: projectDescription,
-      status: projectStatus,
+      // status: projectStatus,
       completed: isProjectCompleted,
       clientId: clientId,
-      amount: projectAmount as number,
+      amount: projectAmount,
     },
     refetchQueries: [GET_PROJECTS],
   });
 
+  console.log("Project Name", {
+    projectName,
+    projectDescription,
+    // projectStatus,
+    isProjectCompleted,
+    clientId,
+    projectAmount,
+  });
+
+  // console.log("TYPE NUMBER : ", typeof projectAmount);
   const onSubmitHandler = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    addProject();
+
+    try {
+      addProject();
+      toast({
+        title: "Project Added.",
+        description: `${projectName} added as a project`,
+        position: "top",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: `Could not add Project ${error}`,
+        position: "top",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+
     setProjectAmount(undefined);
     setProjectStatus("");
     setProjectDescription("");
@@ -113,9 +144,9 @@ const AddProjectModal = () => {
                   <FormLabel>Amount</FormLabel>
                   <Input
                     placeholder="Project Total Cost"
-                    value={Number(projectAmount)}
+                    // value={projectAmount}
                     type="number"
-                    id="phone"
+                    id="amount"
                     //   @ts-ignore
                     onChange={(event: {
                       target: { value: SetStateAction<number> };
@@ -141,7 +172,7 @@ const AddProjectModal = () => {
                 </FormControl>
 
                 <FormControl mt={4}>
-                  <FormLabel>Project Client </FormLabel>
+                  <FormLabel>Client Associated to Project </FormLabel>
 
                   <Select
                     value={clientId}
@@ -168,7 +199,7 @@ const AddProjectModal = () => {
                   <FormLabel>Description</FormLabel>
                   <Input
                     placeholder="Project Description"
-                    id="notes"
+                    id="description"
                     value={projectDescription}
                     h={100}
                     onChange={(event: IEventAction) => {

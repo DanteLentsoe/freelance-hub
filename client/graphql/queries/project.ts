@@ -6,7 +6,8 @@ const GET_PROJECTS = gql`
       id
       name
       description
-      status
+      amount
+      # status
       completed
     }
   }
@@ -18,9 +19,9 @@ const GET_PROJECT = gql`
       id
       name
       description
-      status
+      # status
       completed
-
+      amount
       client {
         id
         name

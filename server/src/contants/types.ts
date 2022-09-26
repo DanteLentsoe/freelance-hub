@@ -2,7 +2,7 @@ import { SchemaDefinitionProperty } from "mongoose";
 
 export interface Projects {
   id: string;
-  clientId: string | SchemaDefinitionProperty<string>;
+  clientId: Client | SchemaDefinitionProperty<string>;
   name: string;
   description: string;
   status: string;
